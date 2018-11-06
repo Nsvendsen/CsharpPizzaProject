@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "PizzaOrderList";
+}
+
+
+<div class="container">
+    <table class="table">
+        <tr>
+            <th>Nr.</th>
+            <th>Pizza Navn</th>
+            <th>Fyld</th>
+            <th>Pris</th>
+            <th>Pris fam.</th>
+        </tr>
+        @foreach (var Pizza in Model)
+        {
+            <tr>
+                <th>@Pizza.Id</th>
+                <th>@Pizza.name</th>
+                <th>@Pizza.toppings</th>
+                <th>@Pizza.priceAlm</th>
+                <th>@Pizza.priceFam</th>
+                <th>
+                    <div>
+                        @using (Html.BeginForm("PizzaDeleter", "Home", new { id = Pizza.Id }, FormMethod.Post,
+                            new { onclick = "return confirm('Er du sikker på at du vil slette pizzaen?');" }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button type="submit" class="btn btn-danger">Slet</button>
+                        }
+                    </div>
+                </th>
+            </tr>
+
+        }
+
+    </table>
+</div>
